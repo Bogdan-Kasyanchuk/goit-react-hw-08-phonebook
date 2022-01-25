@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import * as operations from 'redux/contacts/contacts-operations';
 import { getContacts } from 'redux/contacts/contacts-selectors';
 
-const P = styled.p`
-  margin-bottom: 5px;
-  padding-left: 236px;
-  font-size: 22px;
+const Label = styled.label`
+  padding-left: 312px;
+  font-size: 20px;
 `;
 
 const Input = styled.input`
   display: block;
+  margin-top: 5px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 15px;
@@ -43,28 +43,32 @@ const Button = styled.button`
 
 const ContactForm = () => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
 
   const handlerChange = event => {
     const { name, value } = event.target;
     if (name === 'name') setName(value);
-    if (name === 'phone') setPhone(value);
+    if (name === 'number') setNumber(value);
   };
 
   const createContact = event => {
     event.preventDefault();
     const contact = {
       name: name,
-      phone: phone,
+      number: number,
     };
-    if (contacts.some(element => element.name === contact.name))
+    if (
+      contacts.some(
+        element => element.name.toLowerCase() === contact.name.toLowerCase(),
+      )
+    )
       return toast(`${contact.name} is already in contacts`, {
         icon: '⚠️',
       });
-    if (contacts.some(element => element.phone === contact.phone))
-      return toast(`${contact.phone} is already in contacts`, {
+    if (contacts.some(element => element.number === contact.number))
+      return toast(`${contact.number} is already in contacts`, {
         icon: '⚠️',
       });
     dispatch(operations.addContact(contact));
@@ -73,13 +77,13 @@ const ContactForm = () => {
 
   function reset() {
     setName('');
-    setPhone('');
+    setNumber('');
   }
 
   return (
     <form autoComplete="off" onSubmit={createContact}>
-      <P>Name</P>
-      <label>
+      <Label>
+        Name
         <Input
           type="text"
           name="name"
@@ -90,21 +94,21 @@ const ContactForm = () => {
           required
           onChange={handlerChange}
         />
-      </label>
-      <P>Number</P>
-      <label>
+      </Label>
+      <Label>
+        Number
         <Input
           type="tel"
-          name="phone"
-          value={phone}
+          name="number"
+          value={number}
           placeholder="Enter number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
           onChange={handlerChange}
         />
-      </label>
-      <Button disabled={!name || !phone} type="submit">
+      </Label>
+      <Button disabled={!name || !number} type="submit">
         Add contact
       </Button>
     </form>

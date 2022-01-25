@@ -4,13 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import styled from 'styled-components';
 import * as operations from 'redux/contacts/contacts-operations';
-import {
-  getContacts,
-  getLoading,
-  getFilter,
-  getError,
-} from 'redux/contacts/contacts-selectors';
-import * as actions from 'redux/contacts/contacts-actions';
+import { getContacts, getFilter } from 'redux/contacts/contacts-selectors';
+import { getLoading, getError } from 'redux/selectors';
+import * as actions from 'redux/contacts/contacts-action';
 
 const Li = styled.li`
   display: flex;
@@ -75,9 +71,9 @@ const DivButton = styled.button`
 
 const ContactListItem = ({ element, index }) => {
   const [name, setName] = useState(element.name);
-  const [phone, setPhone] = useState(element.phone);
+  const [number, setNumber] = useState(element.number);
   const [inputType, setInputType] = useState(true);
-  const refContact = useRef({ name, phone });
+  const refContact = useRef({ name, number });
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
@@ -87,14 +83,14 @@ const ContactListItem = ({ element, index }) => {
   useEffect(() => {
     if (error) {
       setName(refContact.current.name);
-      setPhone(refContact.current.phone);
+      setNumber(refContact.current.number);
     }
   }, [error]);
 
   const handlerChange = event => {
     const { name, value } = event.target;
     if (name === 'name') setName(value);
-    if (name === 'phone') setPhone(value);
+    if (name === 'number') setNumber(value);
   };
 
   const handlerContact = event => {
@@ -107,8 +103,8 @@ const ContactListItem = ({ element, index }) => {
       if (name !== refContact.current.name) {
         setName(refContact.current.name);
       }
-      if (phone !== refContact.current.phone) {
-        setPhone(refContact.current.phone);
+      if (number !== refContact.current.number) {
+        setNumber(refContact.current.number);
       }
     }
     if (event.target.textContent === 'Delete') {
@@ -124,14 +120,18 @@ const ContactListItem = ({ element, index }) => {
   const handlerEditContact = event => {
     event.preventDefault();
     if (name !== refContact.current.name) {
-      if (contacts.some(element => element.name === name))
+      if (
+        contacts.some(
+          element => element.name.toLowerCase() === name.toLowerCase(),
+        )
+      )
         return toast(`${name} is already in contacts`, {
           icon: '⚠️',
         });
     }
-    if (phone !== refContact.current.phone) {
-      if (contacts.some(element => element.phone === phone))
-        return toast(`${phone} is already in contacts`, {
+    if (number !== refContact.current.number) {
+      if (contacts.some(element => element.number === number))
+        return toast(`${number} is already in contacts`, {
           icon: '⚠️',
         });
     }
@@ -139,10 +139,10 @@ const ContactListItem = ({ element, index }) => {
       operations.editContact({
         id: event.target.parentElement.dataset.id,
         name,
-        phone,
+        number,
       }),
     );
-    refContact.current = { name, phone };
+    refContact.current = { name, number };
     setInputType(!inputType);
   };
 
@@ -167,8 +167,8 @@ const ContactListItem = ({ element, index }) => {
           readOnly={inputType}
           autoComplete="off"
           type="tel"
-          name="phone"
-          value={phone}
+          name="number"
+          value={number}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
@@ -178,7 +178,7 @@ const ContactListItem = ({ element, index }) => {
           <Button
             disabled={
               name === refContact.current.name &&
-              phone === refContact.current.phone
+              number === refContact.current.number
             }
             type="submit"
           >
@@ -204,7 +204,7 @@ const ContactListItem = ({ element, index }) => {
 ContactListItem.propTypes = {
   element: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
   }),
   index: PropTypes.number.isRequired,

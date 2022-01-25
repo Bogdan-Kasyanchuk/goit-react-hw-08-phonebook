@@ -1,20 +1,24 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { contactsReducer } from 'redux/contacts/contacts-reducer';
-import { loadingReducer } from 'redux/contacts/loading-reducer';
-import { errorReducer } from 'redux/contacts/error-reducer';
+import { persistStore, persistReducer } from 'redux-persist';
 // import logger from 'redux-logger';
+import { contactsReducer } from 'redux/contacts/contacts-reducers';
+import { authReducer } from 'redux/auth/auth-reducer';
+import { loadingReducer } from 'redux/loading-reducer';
+import { errorReducer } from 'redux/error-reducer';
+import middleware from 'redux/middleware';
+import persistConfig from 'redux/persistConfig';
 
-const rootReducer = {
-  contacts: contactsReducer,
-  loading: loadingReducer,
-  error: errorReducer,
-};
-
-const store = configureStore({
-  reducer: rootReducer,
-  // middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger),
-  middleware: getDefaultMiddleware => getDefaultMiddleware(),
+export const store = configureStore({
+  reducer: {
+    contacts: contactsReducer,
+    auth: persistReducer(persistConfig, authReducer),
+    loading: loadingReducer,
+    error: errorReducer,
+  },
+  // middleware: getDefaultMiddleware =>
+  //   getDefaultMiddleware(middleware).concat(logger),
+  middleware: getDefaultMiddleware => getDefaultMiddleware(middleware),
   devTools: process.env.NODE_ENV === 'development',
 });
 
-export default store;
+export const persistor = persistStore(store);

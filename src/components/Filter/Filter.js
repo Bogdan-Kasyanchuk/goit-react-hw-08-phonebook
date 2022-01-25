@@ -1,26 +1,23 @@
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { getFilter } from 'redux/contacts/contacts-selectors';
-import * as actions from 'redux/contacts/contacts-actions';
+import * as actions from 'redux/contacts/contacts-action';
 
 const Div = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 15px;
   width: 350px;
 `;
 
-const P = styled.p`
+const Label = styled.label`
   margin-bottom: 5px;
   font-size: 22px;
-  text-align: center;
 `;
 
 const Input = styled.input`
   display: inline-block;
+  margin-top: 5px;
   margin-right: 30px;
   padding: 5px;
   font-size: 18px;
@@ -58,8 +55,8 @@ const Filter = () => {
 
   return (
     <Div>
-      <P>Find contacts by name</P>
-      <label>
+      <Label>
+        Find contacts by name
         <Input
           autoComplete="off"
           type="text"
@@ -68,7 +65,7 @@ const Filter = () => {
           placeholder="Enter name"
           onChange={handlerChange}
         />
-      </label>
+      </Label>
       <Button disabled={!filter} type="button" onClick={clear}>
         Clear
       </Button>

@@ -3,6 +3,11 @@ const initialState = {
     items: [],
     filter: '',
   },
+  auth: {
+    user: { name: null, email: null },
+    token: null,
+    isLoggedIn: false,
+  },
   loading: false,
   error: null,
 };

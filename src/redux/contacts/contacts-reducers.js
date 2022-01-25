@@ -1,7 +1,7 @@
 import { createReducer, combineReducers } from '@reduxjs/toolkit';
-import initialState from 'redux/contacts/contacts-state';
+import initialState from 'redux/initialState';
 import * as operations from 'redux/contacts/contacts-operations';
-import * as actions from 'redux/contacts/contacts-actions';
+import * as actions from 'redux/contacts/contacts-action';
 
 const itemsReducer = createReducer(initialState.contacts.items, {
   [operations.getContact.fulfilled]: (_, { payload }) => payload,
