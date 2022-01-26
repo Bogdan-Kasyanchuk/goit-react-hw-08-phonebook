@@ -40,37 +40,34 @@ const Button = styled.button`
 `;
 
 const Login = () => {
-  console.log('Login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
-  const handlerChange = event => {
+  const handlerChangeInput = event => {
     const { name, value } = event.target;
     if (name === 'email') setEmail(value);
     if (name === 'password') setPassword(value);
   };
 
-  const logInUser = event => {
-    console.log(4343);
-
+  const handlerLogInUser = event => {
     event.preventDefault();
     const credentials = {
       email: email,
       password: password,
     };
     dispatch(operations.logIn(credentials));
-    reset();
+    resetForm();
   };
 
-  function reset() {
+  function resetForm() {
     setEmail('');
     setPassword('');
   }
 
   return (
     <>
-      <form autoComplete="on" onSubmit={logInUser}>
+      <form autoComplete="on" onSubmit={handlerLogInUser}>
         <Label>
           Email
           <Input
@@ -78,10 +75,8 @@ const Login = () => {
             name="email"
             value={email}
             placeholder="Enter email"
-            // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            // title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
-            onChange={handlerChange}
+            onChange={handlerChangeInput}
           />
         </Label>
         <Label>
@@ -91,10 +86,8 @@ const Login = () => {
             name="password"
             value={password}
             placeholder="Enter password"
-            // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            // title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
-            onChange={handlerChange}
+            onChange={handlerChangeInput}
           />
         </Label>
         <Button type="submit">Log In</Button>

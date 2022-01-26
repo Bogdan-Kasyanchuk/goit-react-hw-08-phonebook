@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { getIsLoggedIn } from 'redux/auth/auth-selectors';
-import Navigation from 'components/Navigation/Navigation';
-import AuthorizationNav from 'components/AuthorizationNav/AuthorizationNav';
-import UserMenu from 'components/UserMenu/UserMenu';
 import styled from 'styled-components';
+import Navigation from 'components/Navigation/Navigation';
+import UserMenu from 'components/UserMenu/UserMenu';
+import AuthNav from 'components/AuthNav/AuthNav';
 
 const Div = styled.div`
   display: flex;
@@ -22,7 +22,7 @@ const AppBar = () => {
   return (
     <Div>
       <Navigation />
-      {isLoggedIn ? <UserMenu /> : <AuthorizationNav />}
+      {isLoggedIn ? <UserMenu /> : <AuthNav />}
     </Div>
   );
 };

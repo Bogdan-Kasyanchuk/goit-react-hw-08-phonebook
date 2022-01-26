@@ -9,7 +9,7 @@ export const getContact = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get('/contacts');
-      toast.success('Contacts loaded successfully!');
+      if (data.length) toast.success('Contacts loaded successfully!');
       return data;
     } catch (error) {
       toast.error(`${error}`);

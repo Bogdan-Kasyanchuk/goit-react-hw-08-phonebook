@@ -44,44 +44,45 @@ const Button = styled.button`
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
-  const handlerChange = event => {
+  const handlerChangeInput = event => {
     const { name, value } = event.target;
     if (name === 'name') setName(value);
     if (name === 'number') setNumber(value);
   };
 
-  const createContact = event => {
+  const handlerCreateContact = event => {
     event.preventDefault();
+
+    if (
+      contacts.some(
+        element => element.name.toLowerCase() === name.toLowerCase(),
+      )
+    )
+      return toast(`${name} is already in contacts`, {
+        icon: '⚠️',
+      });
+    if (contacts.some(element => element.number === number))
+      return toast(`${number} is already in contacts`, {
+        icon: '⚠️',
+      });
     const contact = {
       name: name,
       number: number,
     };
-    if (
-      contacts.some(
-        element => element.name.toLowerCase() === contact.name.toLowerCase(),
-      )
-    )
-      return toast(`${contact.name} is already in contacts`, {
-        icon: '⚠️',
-      });
-    if (contacts.some(element => element.number === contact.number))
-      return toast(`${contact.number} is already in contacts`, {
-        icon: '⚠️',
-      });
     dispatch(operations.addContact(contact));
-    reset();
+    resetForm();
   };
 
-  function reset() {
+  function resetForm() {
     setName('');
     setNumber('');
   }
 
   return (
-    <form autoComplete="off" onSubmit={createContact}>
+    <form autoComplete="off" onSubmit={handlerCreateContact}>
       <Label>
         Name
         <Input
@@ -92,7 +93,7 @@ const ContactForm = () => {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
-          onChange={handlerChange}
+          onChange={handlerChangeInput}
         />
       </Label>
       <Label>
@@ -105,7 +106,7 @@ const ContactForm = () => {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          onChange={handlerChange}
+          onChange={handlerChangeInput}
         />
       </Label>
       <Button disabled={!name || !number} type="submit">

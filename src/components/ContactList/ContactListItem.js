@@ -74,10 +74,10 @@ const ContactListItem = ({ element, index }) => {
   const [number, setNumber] = useState(element.number);
   const [inputType, setInputType] = useState(true);
   const refContact = useRef({ name, number });
-  const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
   const loading = useSelector(getLoading);
+  const dispatch = useDispatch();
   const error = useSelector(getError);
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const ContactListItem = ({ element, index }) => {
     }
   }, [error]);
 
-  const handlerChange = event => {
+  const handlerChangeInput = event => {
     const { name, value } = event.target;
     if (name === 'name') setName(value);
     if (name === 'number') setNumber(value);
@@ -95,17 +95,12 @@ const ContactListItem = ({ element, index }) => {
 
   const handlerContact = event => {
     if (event.target.nodeName !== 'BUTTON') return;
-    if (event.target.textContent === 'Edit') {
-      setInputType(!inputType);
-    }
+    if (event.target.textContent === 'Edit') setInputType(!inputType);
     if (event.target.textContent === 'Cancel') {
       setInputType(!inputType);
-      if (name !== refContact.current.name) {
-        setName(refContact.current.name);
-      }
-      if (number !== refContact.current.number) {
+      if (name !== refContact.current.name) setName(refContact.current.name);
+      if (number !== refContact.current.number)
         setNumber(refContact.current.number);
-      }
     }
     if (event.target.textContent === 'Delete') {
       dispatch(
@@ -135,13 +130,12 @@ const ContactListItem = ({ element, index }) => {
           icon: '⚠️',
         });
     }
-    dispatch(
-      operations.editContact({
-        id: event.target.parentElement.dataset.id,
-        name,
-        number,
-      }),
-    );
+    const editedContact = {
+      id: event.target.parentElement.dataset.id,
+      name: name,
+      number: number,
+    };
+    dispatch(operations.editContact(editedContact));
     refContact.current = { name, number };
     setInputType(!inputType);
   };
@@ -160,7 +154,7 @@ const ContactListItem = ({ element, index }) => {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
-          onChange={handlerChange}
+          onChange={handlerChangeInput}
         />
         <Input
           inputTypeStyle={inputType}
@@ -172,7 +166,7 @@ const ContactListItem = ({ element, index }) => {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          onChange={handlerChange}
+          onChange={handlerChangeInput}
         />
         {!inputType && (
           <Button

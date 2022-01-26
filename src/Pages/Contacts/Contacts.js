@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import * as operations from 'redux/contacts/contacts-operations';
 import { getLoading } from 'redux/selectors';
 import ContactForm from 'components/ContactForm/ContactForm';
-import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter/Filter';
 import Spinner from 'components/Spinner/Spinner';
+import ContactList from 'components/ContactList/ContactList';
 
 const Div = styled.div`
   :not(:last-child) {
@@ -22,9 +22,8 @@ const H2 = styled.h2`
 `;
 
 const Contacts = () => {
-  console.log('Contacts');
-  const dispatch = useDispatch();
   const loading = useSelector(getLoading);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(operations.getContact());

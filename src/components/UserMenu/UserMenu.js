@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
 import { getUserName, getUserEmail } from 'redux/auth/auth-selectors';
 import * as operations from 'redux/auth/auth-operations';
-import styled from 'styled-components';
 
 const Div = styled.div`
   display: flex;

@@ -1,7 +1,7 @@
-import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getIsLoggedIn } from 'redux/auth/auth-selectors';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { getIsLoggedIn } from 'redux/auth/auth-selectors';
 
 const Ul = styled.ul`
   display: flex;

@@ -1,13 +1,16 @@
-import { Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import { getIsLoggedIn } from 'redux/auth/auth-selectors';
 
 const PrivateRoute = ({ children }) => {
-  console.log('PrivateRoute');
   const isLoggedIn = useSelector(getIsLoggedIn);
-  console.log('PrivateRoute-isLoggedIn', isLoggedIn);
 
   return isLoggedIn ? children : <Navigate to="/login" />;
+};
+
+PrivateRoute.propTypes = {
+  children: PropTypes.node,
 };
 
 export default PrivateRoute;

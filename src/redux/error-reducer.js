@@ -1,23 +1,23 @@
 import { createReducer } from '@reduxjs/toolkit';
 import initialState from 'redux/initialState';
-import * as operationsContacts from 'redux/contacts/contacts-operations';
-import * as operationsAuth from 'redux/auth/auth-operations';
+import * as contactsOperations from 'redux/contacts/contacts-operations';
+import * as authOperations from 'redux/auth/auth-operations';
 
 export const errorReducer = createReducer(initialState.error, {
-  [operationsContacts.getContact.rejected]: (_, { payload }) => payload,
-  [operationsContacts.getContact.pending]: () => null,
-  [operationsContacts.addContact.rejected]: (_, { payload }) => payload,
-  [operationsContacts.addContact.pending]: () => null,
-  [operationsContacts.deleteContact.rejected]: (_, { payload }) => payload,
-  [operationsContacts.deleteContact.pending]: () => null,
-  [operationsContacts.editContact.rejected]: (_, { payload }) => payload,
-  [operationsContacts.editContact.pending]: () => null,
-  [operationsAuth.register.rejected]: (_, { payload }) => payload,
-  [operationsAuth.register.pending]: () => null,
-  [operationsAuth.logIn.rejected]: (_, { payload }) => payload,
-  [operationsAuth.logIn.pending]: () => null,
-  [operationsAuth.logOut.rejected]: (_, { payload }) => payload,
-  [operationsAuth.logOut.pending]: () => null,
-  [operationsAuth.getCurrentUser.rejected]: (_, { payload }) => payload,
-  [operationsAuth.getCurrentUser.pending]: () => null,
+  [contactsOperations.getContact.rejected]: (_, { payload }) => payload,
+  [contactsOperations.getContact.pending]: () => null,
+  [contactsOperations.addContact.rejected]: (_, { payload }) => payload,
+  [contactsOperations.addContact.pending]: () => null,
+  [contactsOperations.deleteContact.rejected]: (_, { payload }) => payload,
+  [contactsOperations.deleteContact.pending]: () => null,
+  [contactsOperations.editContact.rejected]: (_, { payload }) => payload,
+  [contactsOperations.editContact.pending]: () => null,
+  [authOperations.register.rejected]: (_, { payload }) => payload,
+  [authOperations.register.pending]: () => null,
+  [authOperations.logIn.rejected]: (_, { payload }) => payload,
+  [authOperations.logIn.pending]: () => null,
+  [authOperations.logOut.rejected]: (_, { payload }) => payload,
+  [authOperations.logOut.pending]: () => null,
+  [authOperations.getCurrentUser.rejected]: (_, { payload }) => payload,
+  [authOperations.getCurrentUser.pending]: () => null,
 });

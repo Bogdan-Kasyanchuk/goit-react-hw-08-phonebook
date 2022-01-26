@@ -42,14 +42,14 @@ const Button = styled.button`
 `;
 
 const Filter = () => {
-  const dispatch = useDispatch();
   const filter = useSelector(getFilter);
+  const dispatch = useDispatch();
 
-  const handlerChange = event => {
+  const handlerChangeInput = event => {
     dispatch(actions.filterContact(event.target.value));
   };
 
-  const clear = () => {
+  const resetInput = () => {
     dispatch(actions.filterContact(''));
   };
 
@@ -63,10 +63,10 @@ const Filter = () => {
           name="filter"
           value={filter}
           placeholder="Enter name"
-          onChange={handlerChange}
+          onChange={handlerChangeInput}
         />
       </Label>
-      <Button disabled={!filter} type="button" onClick={clear}>
+      <Button disabled={!filter} type="button" onClick={resetInput}>
         Clear
       </Button>
     </Div>

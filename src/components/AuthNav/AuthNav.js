@@ -23,7 +23,7 @@ const CustomNavLink = styled(NavLink)`
   }
 `;
 
-const AuthorizationNav = () => {
+const AuthNav = () => {
   return (
     <Ul>
       <Li>
@@ -40,4 +40,4 @@ const AuthorizationNav = () => {
   );
 };
 
-export default AuthorizationNav;
+export default AuthNav;

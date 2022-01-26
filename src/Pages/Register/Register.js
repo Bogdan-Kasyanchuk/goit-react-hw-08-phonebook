@@ -40,13 +40,12 @@ const Button = styled.button`
 `;
 
 const Register = () => {
-  console.log('Register');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
-  const createUser = event => {
+  const handlerCreateUser = event => {
     event.preventDefault();
     const credentials = {
       name: name,
@@ -54,16 +53,16 @@ const Register = () => {
       password: password,
     };
     dispatch(operations.register(credentials));
-    reset();
+    resetForm();
   };
 
-  function reset() {
+  function resetForm() {
     setName('');
     setEmail('');
     setPassword('');
   }
 
-  const handlerChange = event => {
+  const handlerChangeInput = event => {
     const { name, value } = event.target;
     if (name === 'name') setName(value);
     if (name === 'email') setEmail(value);
@@ -72,7 +71,7 @@ const Register = () => {
 
   return (
     <>
-      <form autoComplete="on" onSubmit={createUser}>
+      <form autoComplete="on" onSubmit={handlerCreateUser}>
         <Label>
           Name
           <Input
@@ -80,10 +79,8 @@ const Register = () => {
             name="name"
             value={name}
             placeholder="Enter name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
-            onChange={handlerChange}
+            onChange={handlerChangeInput}
           />
         </Label>
         <Label>
@@ -93,10 +90,8 @@ const Register = () => {
             name="email"
             value={email}
             placeholder="Enter email"
-            // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            // title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
-            onChange={handlerChange}
+            onChange={handlerChangeInput}
           />
         </Label>
         <Label>
@@ -106,10 +101,8 @@ const Register = () => {
             name="password"
             value={password}
             placeholder="Enter password"
-            // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            // title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
-            onChange={handlerChange}
+            onChange={handlerChangeInput}
           />
         </Label>
         <Button type="submit">Sign Up</Button>
