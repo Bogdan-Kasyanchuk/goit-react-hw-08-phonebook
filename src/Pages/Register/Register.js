@@ -40,6 +40,7 @@ const Button = styled.button`
 `;
 
 const Register = () => {
+  console.log('Register');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

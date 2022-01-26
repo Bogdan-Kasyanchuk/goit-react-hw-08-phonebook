@@ -13,7 +13,7 @@ const Div = styled.div`
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 2px;
-  border-bottom: 4px solid #318ce7;
+  border-bottom: 2px solid #000000;
 `;
 
 const AppBar = () => {

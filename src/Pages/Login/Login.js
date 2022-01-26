@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import * as operations from 'redux/auth/auth-operations';
 
@@ -45,10 +44,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  console.log(location);
 
   const handlerChange = event => {
     const { name, value } = event.target;
@@ -57,6 +52,8 @@ const Login = () => {
   };
 
   const logInUser = event => {
+    console.log(4343);
+
     event.preventDefault();
     const credentials = {
       email: email,
@@ -64,7 +61,6 @@ const Login = () => {
     };
     dispatch(operations.logIn(credentials));
     reset();
-    navigate(location.state?.from?.pathname || '/', { replace: true });
   };
 
   function reset() {

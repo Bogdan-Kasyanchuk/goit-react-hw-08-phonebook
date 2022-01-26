@@ -16,27 +16,30 @@ const Li = styled.li`
   }
 `;
 
+const CustomNavLink = styled(NavLink)`
+  color: #000000;
+
+  &:hover,
+  &.${props => props.active} {
+    color: #318ce7;
+  }
+`;
+
 const Navigation = () => {
   const isLoggedIn = useSelector(getIsLoggedIn);
 
   return (
     <Ul>
       <Li>
-        <NavLink
-          // className={({ isActive }) => (isActive ? style.active : style.link)}
-          to="/"
-        >
+        <CustomNavLink to="/" active="active">
           Home
-        </NavLink>
+        </CustomNavLink>
       </Li>
       {isLoggedIn && (
         <Li>
-          <NavLink
-            // className={({ isActive }) => (isActive ? style.active : style.link)}
-            to="/contacts"
-          >
+          <CustomNavLink to="/contacts" active="active">
             Contacts
-          </NavLink>
+          </CustomNavLink>
         </Li>
       )}
     </Ul>

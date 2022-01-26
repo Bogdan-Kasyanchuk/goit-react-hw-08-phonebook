@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Routes, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Container from 'components/Container/Container';
 import * as operations from 'redux/auth/auth-operations';
@@ -10,9 +10,12 @@ import Contacts from 'Pages/Contacts/Contacts';
 import Register from 'Pages/Register/Register';
 import Login from 'Pages/Login/Login';
 import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
+import PublicRoute from 'components/PublicRoute/PublicRoute';
+import { getIsFetchingCurrentUser } from 'redux/auth/auth-selectors';
 
 function App() {
   const dispatch = useDispatch();
+  const isFetchingCurrentUser = useSelector(getIsFetchingCurrentUser);
 
   useEffect(() => {
     dispatch(operations.getCurrentUser());
@@ -21,22 +24,46 @@ function App() {
   return (
     <>
       <Toaster position="top-right" />
-      <Container>
-        <AppBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="contacts"
-            element={
-              <PrivateRoute>
-                <Contacts />
-              </PrivateRoute>
-            }
-          />
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-        </Routes>
-      </Container>
+      {!isFetchingCurrentUser && (
+        <Container>
+          <AppBar />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <PublicRoute>
+                  <Home />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="contacts"
+              element={
+                <PrivateRoute>
+                  <Contacts />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <PublicRoute restricted>
+                  <Register />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <PublicRoute restricted>
+                  <Login />
+                </PublicRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </Container>
+      )}
     </>
   );
 }

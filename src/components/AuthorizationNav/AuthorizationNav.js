@@ -14,24 +14,27 @@ const Li = styled.li`
   }
 `;
 
+const CustomNavLink = styled(NavLink)`
+  color: #000000;
+
+  &:hover,
+  &.${props => props.active} {
+    color: #318ce7;
+  }
+`;
+
 const AuthorizationNav = () => {
   return (
     <Ul>
       <Li>
-        <NavLink
-          // className={({ isActive }) => (isActive ? style.active : style.link)}
-          to="/register"
-        >
+        <CustomNavLink to="/register" active="active">
           Register
-        </NavLink>
+        </CustomNavLink>
       </Li>
       <Li>
-        <NavLink
-          // className={({ isActive }) => (isActive ? style.active : style.link)}
-          to="/login"
-        >
+        <CustomNavLink to="/login" active="active">
           Login
-        </NavLink>
+        </CustomNavLink>
       </Li>
     </Ul>
   );
