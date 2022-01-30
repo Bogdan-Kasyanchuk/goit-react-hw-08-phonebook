@@ -7,21 +7,20 @@ const Ul = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 190px;
+  margin-right: 638px;
 `;
 
 const Li = styled.li`
-  font-size: 24px;
-  :not(:last-child) {
-    margin-right: 30px;
-  }
+  font-size: 20px;
 `;
 
 const CustomNavLink = styled(NavLink)`
-  color: #000000;
-
+  color: #ffffff;
+  padding: 4px 0;
   &:hover,
-  &.${props => props.active} {
-    color: #318ce7;
+  &.active {
+    color: #ff6600;
   }
 `;
 
@@ -31,15 +30,11 @@ const Navigation = () => {
   return (
     <Ul>
       <Li>
-        <CustomNavLink to="/" active="active">
-          Home
-        </CustomNavLink>
+        <CustomNavLink to="/">HOME</CustomNavLink>
       </Li>
       {isLoggedIn && (
         <Li>
-          <CustomNavLink to="/contacts" active="active">
-            Contacts
-          </CustomNavLink>
+          <CustomNavLink to="/contacts">CONTACTS</CustomNavLink>
         </Li>
       )}
     </Ul>

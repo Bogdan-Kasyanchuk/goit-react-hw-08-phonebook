@@ -6,38 +6,50 @@ import * as actions from 'redux/contacts/contacts-action';
 const Div = styled.div`
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 15px;
-  width: 350px;
+  width: 450px;
 `;
 
 const Label = styled.label`
-  margin-bottom: 5px;
-  font-size: 22px;
+  font-size: 18px;
 `;
 
 const Input = styled.input`
   display: inline-block;
+  margin-right: 33px;
   margin-top: 5px;
-  margin-right: 30px;
-  padding: 5px;
+  width: 78%;
+  color: #202020;
+  padding: 5px 10px;
   font-size: 18px;
   border-radius: 5px;
-  border: 2px solid white;
+  border: 2px solid #ffffff;
   outline: none;
   :focus {
-    border-color: #318ce7;
+    border-color: #ff6600;
   }
 `;
 
 const Button = styled.button`
+  display: inline-block;
   padding: 5px 10px;
   font-size: 18px;
-  border: 2px solid black;
+  border: 2px solid #ffffff;
   border-radius: 5px;
-  :hover {
-    color: white;
-    background-color: #318ce7;
-    border-color: #318ce7;
+  outline: none;
+  :hover,
+  :focus {
+    color: #ffffff;
+    background-color: #ff6600;
+    border-color: #ff6600;
+  }
+  :disabled {
+    border: 2px solid #777777;
+  }
+  :disabled:hover {
+    border: 2px solid #777777;
+    background-color: #777777;
+    color: #585858;
+    cursor: not-allowed;
   }
 `;
 

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { getUserName, getUserEmail } from 'redux/auth/auth-selectors';
+import { getUserName } from 'redux/auth/auth-selectors';
 import * as operations from 'redux/auth/auth-operations';
 
 const Div = styled.div`
@@ -11,25 +11,25 @@ const Div = styled.div`
 
 const P = styled.p`
   font-size: 20px;
-  margin-right: 20px;
+  margin-right: 50px;
 `;
 
 const Button = styled.button`
-  ${'' /* width: 70px; */}
   padding: 2px 4px;
-  font-size: 18px;
-  border: 2px solid black;
+  font-size: 20px;
+  border: 2px solid white;
   border-radius: 5px;
-  :hover {
-    color: white;
-    background-color: #318ce7;
-    border-color: #318ce7;
+  outline: none;
+  :hover,
+  :focus {
+    color: #ffffff;
+    background-color: #ff6600;
+    border-color: #ff6600;
   }
 `;
 
 const UserMenu = () => {
   const userName = useSelector(getUserName);
-  const userEmail = useSelector(getUserEmail);
   const dispatch = useDispatch();
 
   const logOut = () => {
@@ -39,9 +39,8 @@ const UserMenu = () => {
   return (
     <Div>
       <P>Hello, {userName} 🎅</P>
-      <P>{userEmail}</P>
       <Button type="button" onClick={logOut}>
-        Log Out
+        LOG OUT
       </Button>
     </Div>
   );

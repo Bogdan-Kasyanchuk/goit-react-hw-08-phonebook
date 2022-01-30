@@ -9,67 +9,104 @@ import { getLoading, getError } from 'redux/selectors';
 import * as actions from 'redux/contacts/contacts-action';
 
 const Li = styled.li`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+  font-size: 18px;
   :not(:last-child) {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
-  font-size: 20px;
-`;
-
-const Span = styled.span`
-  margin-right: 5px;
-  font-size: 20px;
 `;
 
 const Form = styled.form`
-  margin-right: auto;
+  display: inline-block;
+  margin-right: 148px;
 `;
 
 const Input = styled.input`
-  width: 180px;
-  margin-right: 30px;
-  padding: 2px 0;
+  :first-child {
+    margin-right: 20px;
+  }
+  width: 220px;
+  display: inline-block;
+  padding: 5px 10px;
   font-size: 18px;
+  outline: none;
   ${({ inputTypeStyle }) =>
     inputTypeStyle === true
-      ? { border: 'none', background: 'none' }
-      : { 'border-radius': '5px', border: '2px solid white' }};
+      ? { border: 'none', background: 'none', color: '#ffffff' }
+      : {
+          'border-radius': '5px',
+          border: '2px solid #ffffff',
+          color: '#202020',
+        }};
   outline: none;
   :focus {
-    border-color: #318ce7;
+    border-color: #ff6600;
   }
+`;
+
+const Div = styled.div`
+  display: inline-block;
 `;
 
 const Button = styled.button`
-  width: 70px;
-  padding: 2px 4px;
+  :not(:last-child) {
+    margin-right: 30px;
+  }
+  width: 80px;
+  display: inline-block;
+  padding: 5px 10px;
   font-size: 18px;
-  border: 2px solid black;
+  border: 2px solid #ffffff;
   border-radius: 5px;
-  :hover {
-    color: white;
-    background-color: #318ce7;
-    border-color: #318ce7;
+  outline: none;
+  :hover,
+  :focus {
+    color: #ffffff;
+    background-color: #ff6600;
+    border-color: #ff6600;
+  }
+  :disabled {
+    border: 2px solid #777777;
+  }
+  :disabled:hover {
+    border: 2px solid #777777;
+    background-color: #777777;
+    color: #585858;
+    cursor: not-allowed;
   }
 `;
 
-const DivButton = styled.button`
-  margin-left: 30px;
-  width: 70px;
-  padding: 2px 4px;
+const OkButton = styled.button`
+  left: 498px;
+  position: absolute;
+  width: 80px;
+  display: inline-block;
+  padding: 5px 10px;
   font-size: 18px;
-  border: 2px solid black;
+  border: 2px solid #ffffff;
   border-radius: 5px;
-  :hover {
-    color: white;
-    background-color: #318ce7;
-    border-color: #318ce7;
+  outline: none;
+  :hover,
+  :focus {
+    color: #ffffff;
+    background-color: #ff6600;
+    border-color: #ff6600;
+  }
+  :disabled {
+    border: 2px solid #777777;
+  }
+  :disabled:hover {
+    border: 2px solid #777777;
+    background-color: #777777;
+    color: #585858;
+    cursor: not-allowed;
   }
 `;
 
-const ContactListItem = ({ element, index }) => {
+const ContactListItem = ({ element }) => {
   const [name, setName] = useState(element.name);
   const [number, setNumber] = useState(element.number);
   const [inputType, setInputType] = useState(true);
@@ -94,15 +131,16 @@ const ContactListItem = ({ element, index }) => {
   };
 
   const handlerContact = event => {
-    if (event.target.nodeName !== 'BUTTON') return;
-    if (event.target.textContent === 'Edit') setInputType(!inputType);
-    if (event.target.textContent === 'Cancel') {
+    const { nodeName, textContent } = event.target;
+    if (nodeName !== 'BUTTON') return;
+    if (textContent === 'Edit') setInputType(!inputType);
+    if (textContent === 'Cancel') {
       setInputType(!inputType);
       if (name !== refContact.current.name) setName(refContact.current.name);
       if (number !== refContact.current.number)
         setNumber(refContact.current.number);
     }
-    if (event.target.textContent === 'Delete') {
+    if (textContent === 'Delete') {
       dispatch(
         operations.deleteContact(
           event.target.parentElement.parentElement.dataset.id,
@@ -142,12 +180,10 @@ const ContactListItem = ({ element, index }) => {
 
   return (
     <Li data-id={element.id} onClick={handlerContact}>
-      <Span>{index + 1}.</Span>
-      <Form onSubmit={handlerEditContact}>
+      <Form autoComplete="off" onSubmit={handlerEditContact}>
         <Input
           inputTypeStyle={inputType}
           readOnly={inputType}
-          autoComplete="off"
           type="text"
           name="name"
           value={name}
@@ -159,17 +195,16 @@ const ContactListItem = ({ element, index }) => {
         <Input
           inputTypeStyle={inputType}
           readOnly={inputType}
-          autoComplete="off"
           type="tel"
           name="number"
           value={number}
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          pattern="^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){7,14}(\s*)?$"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
           onChange={handlerChangeInput}
         />
         {!inputType && (
-          <Button
+          <OkButton
             disabled={
               name === refContact.current.name &&
               number === refContact.current.number
@@ -177,20 +212,20 @@ const ContactListItem = ({ element, index }) => {
             type="submit"
           >
             Ok
-          </Button>
+          </OkButton>
         )}
       </Form>
-      <div>
+      <Div>
         {!inputType && <Button type="button">Cancel</Button>}
         {inputType && (
           <Button disabled={loading} type="button">
             Edit
           </Button>
         )}
-        <DivButton disabled={loading || !inputType} type="button">
+        <Button disabled={loading || !inputType} type="button">
           Delete
-        </DivButton>
-      </div>
+        </Button>
+      </Div>
     </Li>
   );
 };
@@ -201,7 +236,6 @@ ContactListItem.propTypes = {
     number: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
   }),
-  index: PropTypes.number.isRequired,
 };
 
 export default ContactListItem;

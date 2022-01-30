@@ -1,29 +1,28 @@
 import { useSelector } from 'react-redux';
 import { getIsLoggedIn } from 'redux/auth/auth-selectors';
 import styled from 'styled-components';
+import Logo from 'components/Logo/Logo';
 import Navigation from 'components/Navigation/Navigation';
 import UserMenu from 'components/UserMenu/UserMenu';
 import AuthNav from 'components/AuthNav/AuthNav';
 
-const Div = styled.div`
+const Header = styled.header`
+  background-color: #202020;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 2px;
-  border-bottom: 2px solid #000000;
+  padding: 22px 40px;
+  border-bottom: 2px solid #ff6600;
 `;
 
 const AppBar = () => {
   const isLoggedIn = useSelector(getIsLoggedIn);
 
   return (
-    <Div>
+    <Header>
       <Navigation />
+      <Logo children="PHONEBOOK" />
       {isLoggedIn ? <UserMenu /> : <AuthNav />}
-    </Div>
+    </Header>
   );
 };
 

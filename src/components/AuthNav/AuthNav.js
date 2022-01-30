@@ -5,21 +5,20 @@ const Ul = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 170px;
+  margin-left: 20px;
 `;
 
 const Li = styled.li`
-  font-size: 24px;
-  :not(:last-child) {
-    margin-right: 30px;
-  }
+  font-size: 20px;
 `;
 
 const CustomNavLink = styled(NavLink)`
-  color: #000000;
-
-  &:hover,
-  &.${props => props.active} {
-    color: #318ce7;
+  color: #ffffff;
+  padding: 4px 0;
+  :hover,
+  &.active {
+    color: #ff6600;
   }
 `;
 
@@ -27,14 +26,10 @@ const AuthNav = () => {
   return (
     <Ul>
       <Li>
-        <CustomNavLink to="/register" active="active">
-          Register
-        </CustomNavLink>
+        <CustomNavLink to="/register">SIGN UP</CustomNavLink>
       </Li>
       <Li>
-        <CustomNavLink to="/login" active="active">
-          Login
-        </CustomNavLink>
+        <CustomNavLink to="/login">LOG IN</CustomNavLink>
       </Li>
     </Ul>
   );

@@ -6,29 +6,41 @@
   box-sizing: border-box;
 }
 
-body {
-  background-image: linear-gradient(to right, #b9c4b9, #ffffff);
-}
-
-h1,
-h2,
-p,
-ul,
-ol,
-li {
+* {
   margin: 0;
   padding: 0;
 }
 
-ul,
-ol {
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #444444;
+  color: #ffffff;
+  background-image: url('https://www.transparenttextures.com/patterns/inspiration-geometry.png');
+}
+
+ul {
   list-style: none;
 }
 
-button {
-  cursor: pointer;
+picture,
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 a {
+  display: inline-block;
   text-decoration: none;
+}
+
+button,
+label,
+input {
+  cursor: pointer;
+  font-family: inherit;
 }

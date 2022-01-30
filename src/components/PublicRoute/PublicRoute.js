@@ -12,6 +12,7 @@ const PublicRoute = ({ children, restricted = false }) => {
 
 PublicRoute.propTypes = {
   children: PropTypes.node,
+  restricted: PropTypes.bool,
 };
 
 export default PublicRoute;
