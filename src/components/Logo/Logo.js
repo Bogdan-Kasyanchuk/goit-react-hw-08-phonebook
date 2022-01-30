@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const Div = styled.div`
   display: flex;
+  margin-left: auto;
   margin-right: auto;
   align-items: center;
   .icon-phonebook {

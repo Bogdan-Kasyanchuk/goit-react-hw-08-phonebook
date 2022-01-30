@@ -3,7 +3,17 @@ import styled from 'styled-components';
 import { getUserName } from 'redux/auth/auth-selectors';
 import * as operations from 'redux/auth/auth-operations';
 
+const DivWrapper = styled.div`
+  position: relative;
+  width: 190px;
+  height: 32px;
+`;
+
 const Div = styled.div`
+  width: 394px;
+  position: absolute;
+  right: 0;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,12 +47,14 @@ const UserMenu = () => {
   };
 
   return (
-    <Div>
-      <P>Hello, {userName} 🎅</P>
-      <Button type="button" onClick={logOut}>
-        LOG OUT
-      </Button>
-    </Div>
+    <DivWrapper>
+      <Div>
+        <P>Hello, {userName} 🎅</P>
+        <Button type="button" onClick={logOut}>
+          LOG OUT
+        </Button>
+      </Div>
+    </DivWrapper>
   );
 };
 

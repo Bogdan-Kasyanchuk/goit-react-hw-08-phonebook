@@ -8,7 +8,6 @@ const Ul = styled.ul`
   justify-content: space-between;
   align-items: center;
   width: 190px;
-  margin-right: 638px;
 `;
 
 const Li = styled.li`
