@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
-// import logger from 'redux-logger';
 import { contactsReducer } from 'redux/contacts/contacts-reducers';
 import { authReducer } from 'redux/auth/auth-reducer';
 import { loadingReducer } from 'redux/loading-reducer';
@@ -15,8 +14,6 @@ export const store = configureStore({
     loading: loadingReducer,
     error: errorReducer,
   },
-  // middleware: getDefaultMiddleware =>
-  //   getDefaultMiddleware(middleware).concat(logger),
   middleware: getDefaultMiddleware => getDefaultMiddleware(middleware),
   devTools: process.env.NODE_ENV === 'development',
 });

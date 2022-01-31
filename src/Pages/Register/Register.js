@@ -77,7 +77,6 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    reset,
     watch,
     formState: { errors },
   } = useForm({ mode: 'onBlur' });
@@ -92,7 +91,6 @@ const Register = () => {
 
   const handlerCreateUser = credentials => {
     dispatch(operations.register(credentials));
-    reset();
   };
 
   return (

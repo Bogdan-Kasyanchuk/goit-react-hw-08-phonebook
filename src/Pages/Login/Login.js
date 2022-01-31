@@ -77,7 +77,6 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    reset,
     watch,
     formState: { errors },
   } = useForm({ mode: 'onBlur' });
@@ -90,7 +89,6 @@ const Login = () => {
 
   const handlerLogInUser = credentials => {
     dispatch(operations.logIn(credentials));
-    reset();
   };
 
   return (
